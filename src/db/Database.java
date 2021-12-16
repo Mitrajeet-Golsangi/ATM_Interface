@@ -12,7 +12,7 @@ public class Database {
 
     private final String URL = "jdbc:postgresql://localhost:5432/ATM_Interface";
     private final String USERNAME = "postgres";
-    private final String PASSWORD = "mitgol27";
+    private final String PASSWORD = System.getenv("PSQL_PAS");
 
     private Connection conn = null;
     private PreparedStatement ps = null;

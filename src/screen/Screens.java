@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Screens;
+package screen;
 
-import Login.Login;
-import Transaction.Transaction;
-import db.Database;
-import db.User;
+import account.Login;
+import transactions.Transaction;
+import db.*;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,7 +23,32 @@ public class Screens extends javax.swing.JFrame {
     public Screens() {
         initComponents();
     }
-
+    
+    private void fillData(ResultSet rs) throws SQLException{ 
+        while(rs.next()) {
+            String name = rs.getString("name");
+            int cardNumber = rs.getInt("card_number");
+            int bankBalance = rs.getInt("bank_balance");
+            int currentAmount = rs.getInt("amount");
+            int updatedBalance = rs.getInt("updated_balance");
+            boolean isWithdraw = rs.getBoolean("withdraw");
+            boolean isDeposit = rs.getBoolean("deposit");
+            
+            
+            Object[] row = {
+                name,
+                cardNumber,
+                bankBalance,
+                currentAmount,
+                isWithdraw,
+                isDeposit,
+                updatedBalance,
+            };
+            DefaultTableModel tblModel = (DefaultTableModel)tt.getModel();
+            tblModel.addRow(row);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,6 +70,13 @@ public class Screens extends javax.swing.JFrame {
         amount = new javax.swing.JLabel();
         amountField = new javax.swing.JTextField();
         message = new javax.swing.JLabel();
+        transTbl = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tt = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        history = new javax.swing.JMenuItem();
+        logout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,10 +87,12 @@ public class Screens extends javax.swing.JFrame {
 
         uname.setText("Username :");
 
+        unameField.setText("divija");
         unameField.setToolTipText("Enter Username");
 
         pass.setText("Password :");
 
+        passField.setText("divija");
         passField.setToolTipText("Enter Password");
 
         loginBtn.setText("Login");
@@ -167,7 +202,7 @@ public class Screens extends javax.swing.JFrame {
         homePaneLayout.setVerticalGroup(
             homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePaneLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(64, 64, 64)
                 .addGroup(homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AccBalance)
                     .addComponent(balance, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -181,24 +216,83 @@ public class Screens extends javax.swing.JFrame {
                 .addGroup(homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deposit)
                     .addComponent(withdraw))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         Parent.add(homePane, "card3");
+
+        tt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Card Number", "Bank Balance", "Amount", "Withdraw", "Deposit", "Updated Balance"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tt);
+
+        javax.swing.GroupLayout transTblLayout = new javax.swing.GroupLayout(transTbl);
+        transTbl.setLayout(transTblLayout);
+        transTblLayout.setHorizontalGroup(
+            transTblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+        );
+        transTblLayout.setVerticalGroup(
+            transTblLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+        );
+
+        Parent.add(transTbl, "card4");
+
+        jMenu1.setText("Options");
+
+        history.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        history.setText("Transaction History");
+        history.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyActionPerformed(evt);
+            }
+        });
+        jMenu1.add(history);
+
+        logout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        logout.setText("Logout");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(logout);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Parent, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Parent, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Parent, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Parent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -241,11 +335,21 @@ public class Screens extends javax.swing.JFrame {
             new Transaction().withdraw(Integer.parseInt(amountField.getText()), u);
             message.setText("Withdraw Successfull");
             message.setForeground(Color.GREEN);
-            
+
+            new Transaction().logTransaction(
+                    u.getUserName(),
+                    u.getBankBalance(),
+                    u.getCardNumber(),
+                    Integer.parseInt(amountField.getText()),
+                    u.getBankBalance() - Integer.parseInt(amountField.getText()),
+                    true,
+                    false
+            );
+
         } catch (RuntimeException e) {
             message.setText(e.getMessage());
             message.setForeground(Color.RED);
-        
+
         } catch (SQLException e) {
             message.setText(e.getLocalizedMessage());
             message.setForeground(Color.RED);
@@ -268,13 +372,48 @@ public class Screens extends javax.swing.JFrame {
             message.setForeground(Color.GREEN);
             message.setText("Deposit Successfull");
             balance.setText(String.valueOf(u.getBankBalance()));
-        
+
+            new Transaction().logTransaction(
+                    u.getUserName(),
+                    u.getBankBalance(),
+                    u.getCardNumber(),
+                    Integer.parseInt(amountField.getText()),
+                    u.getBankBalance() - Integer.parseInt(amountField.getText()),
+                    false,
+                    true
+            );
+
         } catch (SQLException e) {
             message.setForeground(Color.RED);
             message.setText(e.getLocalizedMessage());
         }
         Parent.repaint();
     }//GEN-LAST:event_depositActionPerformed
+
+    private void historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyActionPerformed
+        try {
+            ResultSet rs = new Transaction().getLogs(u.getUserName());
+            
+            Parent.removeAll();
+            fillData(rs);
+            Parent.add(transTbl);
+        } catch (SQLException e) {
+            message.setForeground(Color.RED);
+            message.setText(e.getLocalizedMessage());
+            System.out.println("screen.Screens.historyActionPerformed() : " + e.getLocalizedMessage());
+        }
+        Parent.repaint();
+    }//GEN-LAST:event_historyActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        new Database().closeConnection();
+        u = null;
+        Parent.removeAll();
+        Parent.add(loginPane);
+        unameField.setText("");
+        passField.setText("");
+        Parent.repaint();
+    }//GEN-LAST:event_logoutActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -316,14 +455,21 @@ public class Screens extends javax.swing.JFrame {
     private javax.swing.JTextField amountField;
     private javax.swing.JLabel balance;
     private javax.swing.JButton deposit;
+    private javax.swing.JMenuItem history;
     private javax.swing.JPanel homePane;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JLabel loginError;
     private javax.swing.JPanel loginPane;
+    private javax.swing.JMenuItem logout;
     private javax.swing.JLabel message;
     private javax.swing.JLabel pass;
     private javax.swing.JPasswordField passField;
     private javax.swing.JLabel title;
+    private javax.swing.JPanel transTbl;
+    private javax.swing.JTable tt;
     private javax.swing.JLabel uname;
     private javax.swing.JTextField unameField;
     private javax.swing.JButton withdraw;

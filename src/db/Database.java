@@ -51,6 +51,25 @@ public class Database {
     }
     
     /**
+     * Closes the created connection to the database without closing the 
+     * result set
+     */
+    public void closeConnectionWithoutRS() {
+        try {
+            if (conn != null){
+                conn.close();
+            }
+        } catch (SQLException e) {/* Ignore */
+        }
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (SQLException e) {/* Ignore */
+        }
+    }
+    
+    /**
      * Creates new User in the database
      * @param username      : String    - The username of the user
      * @param password      : String    - The password of the user
@@ -113,5 +132,28 @@ public class Database {
         
         ps = conn.prepareStatement(query);
         ps.executeUpdate();
+    }
+    
+    public void updateLogs(String name, int bankBalance, long cardNumber, int amount, int updatedBalance, boolean withdraw, boolean deposit) throws SQLException {
+        String query = "INSERT INTO log (name, card_number, bank_balance, amount, updated_balance, withdraw, deposit) " + 
+                String.format(
+                        "VALUES ('%s','%d','%d','%d','%d', '%s', '%s')",
+                        name,
+                        cardNumber,
+                        bankBalance,
+                        amount,
+                        updatedBalance,
+                        withdraw,
+                        deposit
+                );
+        ps = conn.prepareStatement(query);
+        ps.executeUpdate();
+    }
+    
+    public ResultSet fetchLogs(String name) throws SQLException {
+        String query = "SELECT * from log WHERE name='"+ name +"'";
+        ps = conn.prepareStatement(query);
+        rs = ps.executeQuery();
+        return rs;
     }
 }

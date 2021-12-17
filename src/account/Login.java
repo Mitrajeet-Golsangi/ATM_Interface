@@ -1,4 +1,4 @@
-package Login;
+package account;
 
 import db.Database;
 import db.User;

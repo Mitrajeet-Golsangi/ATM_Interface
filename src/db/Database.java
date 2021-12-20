@@ -151,6 +151,7 @@ public class Database {
     }
     
     public ResultSet fetchLogs(String name) throws SQLException {
+        System.out.println("db.Database.fetchLogs() : " + name);
         String query = "SELECT * from log WHERE name='"+ name +"'";
         ps = conn.prepareStatement(query);
         rs = ps.executeQuery();

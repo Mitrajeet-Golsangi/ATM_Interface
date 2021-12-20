@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/Transaction/Transaction.java</file>
-            <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/App/App.java</file>
-            <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/db/User.java</file>
-            <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/Login/Login.java</file>
+            <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/screen/Screens.java</file>
+            <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/transactions/Transaction.java</file>
             <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/db/Database.java</file>
-            <file>file:/D:/VIT%20Projects/Second%20Year/1st%20Semester/OOP%20CP/ATM_Interface/src/Screens/Screens.java</file>
         </group>
     </open-files>
 </project-private>

@@ -25,6 +25,7 @@ public class Screens extends javax.swing.JFrame {
     }
     
     private void fillData(ResultSet rs) throws SQLException{ 
+        Object[] row = new Object[7];
         while(rs.next()) {
             String name = rs.getString("name");
             int cardNumber = rs.getInt("card_number");
@@ -35,15 +36,14 @@ public class Screens extends javax.swing.JFrame {
             boolean isDeposit = rs.getBoolean("deposit");
             
             
-            Object[] row = {
-                name,
-                cardNumber,
-                bankBalance,
-                currentAmount,
-                isWithdraw,
-                isDeposit,
-                updatedBalance,
-            };
+            row[0] = name;
+            row[1] = cardNumber;
+            row[2] = bankBalance;
+            row[3] = currentAmount;
+            row[4] = isWithdraw;
+            row[5] = isDeposit;
+            row[6] = updatedBalance;
+            
             DefaultTableModel tblModel = (DefaultTableModel)tt.getModel();
             tblModel.addRow(row);
         }
@@ -395,6 +395,7 @@ public class Screens extends javax.swing.JFrame {
             ResultSet rs = new Transaction().getLogs(u.getUserName());
             
             Parent.removeAll();
+//            tt.removeR;
             fillData(rs);
             Parent.add(transTbl);
         } catch (SQLException e) {
